@@ -1,0 +1,26 @@
+// protoc --java_out=person_proto.jar person.proto, 用来生成jar包
+
+// 使用proto3的语义
+syntax = "proto3";
+
+// 指定包名
+option java_package = "com.feng.custom.info";
+
+// 指定类名
+option java_outer_classname = "Person";
+
+// 生成多个类文件
+option java_multiple_files = true;
+
+// 个人信息
+message Profile {
+    string name = 1;
+    Sex sex = 2;
+    int32 age = 3;
+
+    // 性别枚举
+    enum Sex {
+        BOY = 0;
+        GIRL = 1;
+    }
+}
