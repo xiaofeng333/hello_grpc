@@ -1,0 +1,37 @@
+// protoc --java_out=person_proto.jar person.proto, 用来生成jar包
+
+// 使用proto3的语义
+syntax = "proto3";
+
+// 用于定义未引入的message type
+import "google/protobuf/any.proto";
+
+// 指定包名
+option java_package = "com.feng.custom.rpc";
+
+// 指定类名
+option java_outer_classname = "Route";
+
+// 生成多个类文件
+option java_multiple_files = true;
+
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+message Feature {
+  string name = 1;
+  Point location = 2;
+}
+
+message Product {
+  string name = 1;
+}
+
+service RouteGuide {
+    rpc GetFeature(Point) returns (Feature) {}
+    rpc ListFeatures(Product) returns (stream Feature) {}
+    rpc RecordRoute(stream Product) returns (Feature) {}
+    rpc RouteChat(stream Point) returns (stream Feature) {}
+}
